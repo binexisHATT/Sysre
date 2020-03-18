@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Note: python should be installed on your Windows machine if you would like to use sysre in the command prompt
-
+# systeminfo |find "Memory"
 try:
   import os
   import sys
