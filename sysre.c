@@ -4,6 +4,9 @@
 * Program : Sysre
 *****************************************/
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 // defining our program colors //
 #define RED     "\x1b[31m"
@@ -12,12 +15,31 @@
 #define BLUE    "\x1b[34m"
 #define MAGENTA "\x1b[35m"
 #define CYAN    "\x1b[36m"
-#define RESET   "\x1b[0m" // set color back to original
-
-#include <stdio.h>
-#include <stdlib.h>
+// set color back to original color
+#define RESET   "\x1b[0m" 
 
 
-int main() {
-	printf(RED "Hello World!\n" RESET);
+void os_detection()
+{
+	FILE *p;
+    char ch;
+
+	p = popen("uname -r","r");   /* Linux */
+    if( p == NULL)
+    {
+        printf("Unsuccessful command execution\n");
+        exit(1);
+    }
+
+	printf(RED "Operating System [-> " RESET);
+    while( (ch = fgetc(p)) != EOF )
+        putchar(ch);
+    pclose(p);
+}
+
+
+int main()
+{
+	os_detection();
+	return(0);
 }
