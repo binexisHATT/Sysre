@@ -46,6 +46,7 @@ void dir_list( const char directory[] );
  * Returns: FILE pointer
  */
 FILE* exec_cmd( const char cmd[] ) {
+
     FILE *result;
 
     result = popen( cmd, "r" );
@@ -73,7 +74,7 @@ void os_detection() {
     else
 	    p = exec_cmd( "uname -r" );                                       /* Unix */
 
-	printf( YELLOW "Operating System:\n " RESET );
+	printf( YELLOW "\nOperating System:\n" RESET );
     while( (ch = fgetc(p)) != EOF )
         putchar( ch );
 
@@ -87,6 +88,7 @@ void os_detection() {
  * Gets and prints the computers cpu usage levels, Type=Performer
  */
  void cpu_usage() {
+
     FILE *p;
     char ch;
 
@@ -111,12 +113,20 @@ void os_detection() {
  * Displays the disk space being used by the computer, Type=Performer
  */
  void disk_space() {
+
     FILE *p;
     char ch;
 
     if( OPERATING_SYSTEM == "Windows" ) {
         p = exec_cmd("wmic logicaldisk get size,freespace,caption");
+    } else {
+        p = exec_cmd("df -a");
     }
+
+    printf( GREEN "\nDISK SPACE INFORMATION:\n" RESET );
+    while( (ch = fgetc(p)) != EOF)
+        putchar( ch );
+    pclose( p );
  }
 
 
@@ -128,6 +138,7 @@ void os_detection() {
  *  directory (str): the directory to open
  */
  void dir_list(const char directory[]) {
+
     DIR *d;
     struct dirent *dir;
     d = opendir(directory);
@@ -144,19 +155,21 @@ void os_detection() {
 int main( void ) {
 
     cpu_usage();
-	os_detection();
+    os_detection();
     disk_space();
 
     if( OPERATING_SYSTEM == "Windows" ) {
         dir_list( "C:\\Windows\\Temp" );
-    } else {
+    }
+    else {
         printf( BLUE "\nFILES IN /tmp FOLDER:\n" RESET );
         dir_list( "/tmp" );
+        sleep(1);
         printf( BLUE "\nFILES IN /etc FOLDER:\n" RESET );
         dir_list( "/etc" );
-        printf( BLUE "\nFILES IN /var/logs FOLDER:\n" RESET );
-        dir_list( "/var/logs" );
+        sleep(1);
+        printf( BLUE "\nFILES IN /var/log FOLDER:\n" RESET );
+        dir_list( "/var/log" );
     }
-    
 	return( 0 );
 }
