@@ -1,3 +1,3 @@
 #!/bin/bash
 
-clang sysre.c -o sysre && ./sysre
+clang sysre.c -o sysre && ./sysre 
