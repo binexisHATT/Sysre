@@ -32,7 +32,7 @@ FILE* exec_cmd( const char cmd[] ) {
     FILE *result;
 
     result = popen( cmd, "r" );
-    if( result == NULL) {
+    if( result == NULL ) {
         printf( "Unsuccessful command execution\n" );
         exit( EXIT_FAILURE );
     }
@@ -100,9 +100,9 @@ void os_detection() {
     char ch;
 
     if( OPERATING_SYSTEM == "Windows" ) {
-        p = exec_cmd("wmic logicaldisk get size,freespace,caption");
+        p = exec_cmd( "wmic logicaldisk get size,freespace,caption" );
     } else {
-        p = exec_cmd("df -a");
+        p = exec_cmd( "df -a" );
     }
 
     printf( GREEN "\nDISK SPACE INFORMATION:\n" RESET );
@@ -119,11 +119,11 @@ void os_detection() {
  * 
  *  directory (str): the directory to open
  */
- void dir_list(const char directory[]) {
+ void dir_list( const char directory[] ) {
 
     DIR *d;
     struct dirent *dir;
-    d = opendir(directory);
+    d = opendir( directory );
 
     if( dir ) {
 
@@ -142,14 +142,13 @@ int main( void ) {
 
     if( OPERATING_SYSTEM == "Windows" ) {
         dir_list( "C:\\Windows\\Temp" );
-    }
-    else {
-        printf( BLUE "\nFILES IN /tmp FOLDER:\n" RESET );
+    } else {
+    	printf( BLUE "\nFILES IN /tmp FOLDER:\n" RESET );
         dir_list( "/tmp" );
-        sleep(1);
+        sleep( 1 );
         printf( BLUE "\nFILES IN /etc FOLDER:\n" RESET );
         dir_list( "/etc" );
-        sleep(1);
+        sleep( 1 );
         printf( BLUE "\nFILES IN /var/log FOLDER:\n" RESET );
         dir_list( "/var/log" );
     }

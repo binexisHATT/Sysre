@@ -18,7 +18,10 @@
 //    Original color    //
 #define RESET   "\x1b[0m" 
 
+//          Get Array Length           //
+#define LEN(x) ( sizeof(x) / sizeof(*x) )
 
+//           Determine OS            //
 #ifdef _WIN32
     #define OPERATING_SYSTEM "Windows"
     #include <Windows.h>
@@ -27,4 +30,4 @@
     #include <unistd.h>
 #endif
 
-#endif SYSRE_H // end sysrh_h
+#endif // end SYSRE_H
